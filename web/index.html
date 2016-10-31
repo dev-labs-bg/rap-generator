@@ -15,7 +15,6 @@
   <meta itemprop="image" content="../../../images/webrtc-icon-192x192.png">
   <meta itemprop="name" content="WebRTC code samples">
   <meta name="mobile-web-app-capable" content="yes">
-  <meta id="theme-color" name="theme-color" content="#ffffff">
   <base target="_blank">
   <title>MediaStream Recording</title>
 
@@ -32,8 +31,42 @@
 <body>
   <div id="container">
     <div>
+      <text class="hintlabel">Въведете 1 или няколко автори:</text>
+    </div>
+    <div>
       <input id="authors_selector" type="text">
-      <button id="generate">Generate</button>
+    </div>
+    
+    <div>
+      <text class="hintlabel">Колко изречения искаш да ти генерира бота (default: 5)</text>
+    </div>
+    <div>
+      <input class="input_param" id="sentence_count" type="number" min="1" max="40">
+    </div>
+    
+    <div>
+      <text class="hintlabel">Какъв брой от последно използваните думи за генериране на изречение не трябва да се повтарят (default: последните 100)</text>
+    </div>
+    <div>
+      <input class="input_param" id="banned_words_count" type="number" min="1" max="1000">
+    </div>
+
+     <div>
+      <text class="hintlabel">Колко опита да направи ботът да включи определени думи в изречението преди да се откаже и да изкара нещо random (default: 10 опита)</text>
+    </div>
+    <div>
+      <input class="input_param" id="attempts" type="number" min="1" max="100">
+    </div>
+
+     <div>
+      <text class="hintlabel">Колко от последните използвани думи помни бота (default: 2). Ако увеличиш броя думи за определени автори генерира много бавно.</text>
+    </div>
+    <div>
+      <input class="input_param" id="state_size" type="number" min="1" max="100">
+    </div>
+    
+    <div>
+       <button id="generate">Generate</button>
     </div>
     <div>
       <textarea id="lyrics_text"></textarea>

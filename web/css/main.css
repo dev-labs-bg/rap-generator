@@ -1,10 +1,45 @@
-/*
- *  Copyright (c) 2015 The WebRTC project authors. All Rights Reserved.
- *
- *  Use of this source code is governed by a BSD-style license
- *  that can be found in the LICENSE file in the root of the source
- *  tree.
- */
+ body{
+  padding: 30px 30px 30px 30px;
+ }
+ .hintlabel {
+  font-size: medium;
+  margin: 10px 0 10px 0;
+ }
+
+  .input_param {
+  width: 100%;
+  margin: 10px 0 10px 0;
+  border: 1px solid #cccccc;
+  padding: 6px 12px;
+  display: inline-block;
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+ }
+
+ #authors_selector{
+  width: 100%;
+  margin: 10px 0 10px 0;
+  border: 1px solid #cccccc;
+  padding: 6px 12px;
+    -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+ }
+
 #gum  {
   height: 342px;
   margin: 10px 12px 0 20px;

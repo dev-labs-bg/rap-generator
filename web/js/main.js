@@ -8,6 +8,7 @@ var gumVideo = document.querySelector('video#gum');
 var authorsSelector = document.querySelector('input#authors_selector');
 var generateButton = document.querySelector('button#generate');
 var recordButton = document.querySelector('button#record');
+var lyricsTextArea = document.querySelector('textarea#lyrics_text');
 recordButton.onclick = toggleRecording;
 generateButton.onclick = generateText;
 var $select;
@@ -29,32 +30,28 @@ var constraints = {
   video: true
 };
 
-
-$(document).ready(function() {
-    $.ajax({
-      url: "http://192.168.10.106:5000/authors"
-    }).then(function(data) {
-     console.log('data',data);
-       $select = $('#authors_selector').selectize({
-          maxItems: null,
-          valueField: 'slug',
-          labelField: 'name',
-          searchField: 'name',
-          options: data,
-          create: false
-        });
+$.ajax({
+  url: "http://yavor-ivanov.net:5000/authors"
+}).then(function(data) {
+ console.log('data',data);
+   $select = $('#authors_selector').selectize({
+      maxItems: null,
+      valueField: 'slug',
+      labelField: 'name',
+      searchField: 'name',
+      options: data,
+      create: false
     });
 });
 
 function generateText(){
   var selectizeControl = $select[0].selectize
-   //console.log(selectizeControl.getValue());
-   $.ajax({
+  $.ajax({
       type: "POST",
       url: "http://192.168.10.106:5000/generate_lyrics",
       data: "authors="+ selectizeControl.getValue()
     }).then(function(data) {
-     console.log('data',data);
+     lyricsTextArea.value = data;
     });
 }
 

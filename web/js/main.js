@@ -52,7 +52,7 @@ function generateText(){
    $.ajax({
       type: "POST",
       url: "http://192.168.10.106:5000/generate_lyrics",
-      data: JSON.stringify({ "authors": selectizeControl.getValue() }),
+      data: "authors="+ selectizeControl.getValue()
     }).then(function(data) {
      console.log('data',data);
     });

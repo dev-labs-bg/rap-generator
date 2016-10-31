@@ -83,6 +83,11 @@ def get_artists_from_file(basedir):
     return None
 
 
+def has_cached_lyrics(author):
+    file = "%s%s.txt" % (BASE_LYRICS_DIR, author)
+    return path.isfile(file)
+
+
 def get_lyrics_from_file(author):
     file = "%s%s.txt" % (BASE_LYRICS_DIR, author)
     if path.isfile(file):

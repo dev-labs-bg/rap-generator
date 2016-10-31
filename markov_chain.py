@@ -17,8 +17,9 @@ def word_freq(words):
     return collections.Counter(words)
 
 
-def get_model(file, json_file="", state_size=2):
-    text = get_text(file).decode('utf-8')
+def get_model(text="", file="", json_file="", state_size=2):
+    if not text and file:
+        text = get_text(file).decode('utf-8')
     if not os.path.isfile(json_file):
         return markovify.Text(text, state_size=state_size)
     json = get_text(json_file)
@@ -66,7 +67,7 @@ def generate_sentence(text_model, last_sentence, state_size, attempts=10, text='
 
 
 def generate_sentences(text_model, sentence_count, state_size,
-                       banned_word_count=10, attempts=10, text=''):
+                       banned_word_count=10, attempts=10):
     last_sentence = None
     banned_words = []
     sentences = []
@@ -93,9 +94,9 @@ if __name__ == '__main__':
     json_file = "%s.json" % os.path.splitext(file)[0]
     sentence_count = int(argv_or_const(2, 8))
     state_size = int(argv_or_const(3, 2))
-    text_model = get_model(file, json_file, state_size=state_size)
+    text_model = get_model(file=file, json_file=json_file, state_size=state_size)
     print('-----------------------')
     print(generate_sentences(text_model, sentence_count, state_size, banned_word_count=100,
-                             attempts=10, text=get_text(file).decode('utf-8')))
+                             attempts=10))
     print('-----------------------')
     save_state(json_file, text_model)

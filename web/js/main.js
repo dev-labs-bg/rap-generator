@@ -60,7 +60,6 @@ function generateText(){
 
 
 function handleSuccess(stream) {
-  console.log('getUserMedia() got stream: ', stream);
   window.stream = stream;
   if (window.URL) {
     gumVideo.src = window.URL.createObjectURL(stream);

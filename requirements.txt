@@ -24,8 +24,6 @@ queuelib==1.4.2
 Scrapy==1.2.1
 service-identity==16.0.0
 six==1.10.0
-tensorflow==0.11.0rc1
 Twisted==16.4.1
 Unidecode==0.4.19
 w3lib==1.15.0
-zope.interface==4.3.2

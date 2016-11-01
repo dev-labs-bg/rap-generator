@@ -7,7 +7,7 @@ function Recorder(file) {
 
 Recorder.prototype.initialize = function () {
     var self = this;
-    this.mediaSource.addEventListener('sourceopen', function (event) {
+    self.mediaSource.addEventListener('sourceopen', function (event) {
         self.handleSourceOpen(event);
     }, false);
 };
@@ -28,7 +28,7 @@ Recorder.prototype.startRecording = function () {
             console.log("eeee stiga ee " + error);
         });
     }
-    this.recordedBlobs = [];
+    self.recordedBlobs = [];
     var options = {mimeType: 'video/webm;codecs=vp9'};
     if (!MediaRecorder.isTypeSupported(options.mimeType)) {
         console.log(options.mimeType + ' is not Supported');
@@ -43,29 +43,29 @@ Recorder.prototype.startRecording = function () {
         }
     }
     try {
-        this.mediaRecorder = new MediaRecorder(window.stream, options);
+        self.mediaRecorder = new MediaRecorder(window.stream, options);
     } catch (e) {
         console.error('Exception while creating MediaRecorder: ' + e);
         alert('Exception while creating MediaRecorder: '
             + e + '. mimeType: ' + options.mimeType);
         return;
     }
-    console.log('Created MediaRecorder', this.mediaRecorder, 'with options', options);
+    console.log('Created MediaRecorder', self.mediaRecorder, 'with options', options);
     recordButton.textContent = 'Stop Recording';
-    this.mediaRecorder.onstop =  function(event) {
+    self.mediaRecorder.onstop =  function(event) {
         self.handleStop(event);
     };
-    this.mediaRecorder.ondataavailable = function(event) {
+    self.mediaRecorder.ondataavailable = function(event) {
         self.handleDataAvailable(event);
     };
-    this.mediaRecorder.start(10); // collect 10ms of data
-    console.log('MediaRecorder started', this.mediaRecorder);
+    self.mediaRecorder.start(10); // collect 10ms of data
+    console.log('MediaRecorder started', self.mediaRecorder);
 };
 
 Recorder.prototype.stopRecording = function (event) {
     var self = this;
-    this.mediaRecorder.stop(event);
-    console.log('Recorded Blobs: ', this.recordedBlobs);
+    self.mediaRecorder.stop(event);
+    console.log('Recorded Blobs: ', self.recordedBlobs);
     self.onVideoReady(self.recordedBlobs);
 };
 
@@ -99,14 +99,16 @@ Recorder.prototype.initAudio = function () {
 };
 
 Recorder.prototype.handleSourceOpen = function(event) {
+    var self = this;
     console.log('MediaSource opened');
-    this.sourceBuffer = this.mediaSource.addSourceBuffer('video/webm; codecs="vp8"');
-    console.log('Source buffer: ', this.sourceBuffer);
+    self.sourceBuffer = self.mediaSource.addSourceBuffer('video/webm; codecs="vp8"');
+    console.log('Source buffer: ', self.sourceBuffer);
 };
 
 Recorder.prototype.handleDataAvailable = function(event) {
+    var self = this;
     if (event.data && event.data.size > 0) {
-        this.recordedBlobs.push(event.data);
+        self.recordedBlobs.push(event.data);
     }
 };
 
@@ -115,11 +117,12 @@ Recorder.prototype.handleStop = function(event) {
 };
 
 Recorder.prototype.toggleRecording = function () {
+    var self = this;
     console.log("toggleRecording");
     if (recordButton.textContent === 'Start Recording') {
-        this.startRecording();
+        self.startRecording();
     } else {
-        this.stopRecording();
+        self.stopRecording();
         recordButton.textContent = 'Start Recording';
     }
 };

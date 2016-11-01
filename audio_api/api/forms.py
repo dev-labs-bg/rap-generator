@@ -3,7 +3,10 @@
 from django import forms
 
 
-class DocumentForm(forms.Form):
-    docfile = forms.FileField(
+class UploadForm(forms.Form):
+    audio = forms.FileField(
         label='Select a file'
+    )
+    beat = forms.CharField(
+        label='Beat name'
     )

@@ -1,6 +1,7 @@
 /* globals MediaRecorder */
 var mediaSource = new MediaSource();
 mediaSource.addEventListener('sourceopen', handleSourceOpen, false);
+window.addEventListener("load", initAudio);
 var mediaRecorder;
 var recordedBlobs;
 var sourceBuffer;
@@ -9,6 +10,10 @@ var authorsSelector = document.querySelector('input#authors_selector');
 var generateButton = document.querySelector('button#generate');
 var recordButton = document.querySelector('button#record');
 var lyricsTextArea = document.querySelector('textarea#lyrics_text');
+var sentenceCountInput = document.querySelector('input#sentence_count');
+var bannedWordsCountInput = document.querySelector('input#banned_words_count');
+var attemptsInput = document.querySelector('input#attempts');
+var stateSizeInput = document.querySelector('input#state_size');
 recordButton.onclick = toggleRecording;
 generateButton.onclick = generateText;
 var $select;
@@ -31,9 +36,9 @@ var constraints = {
 };
 
 $.ajax({
-  url: "http://yavor-ivanov.net:5000/authors"
+  url: "http://yavor-ivanov.net:5000/authors?cached=true"
 }).then(function(data) {
- console.log('data',data);
+  authorsSelector.disabled = false;
    $select = $('#authors_selector').selectize({
       maxItems: null,
       valueField: 'slug',
@@ -42,14 +47,50 @@ $.ajax({
       options: data,
       create: false
     });
-});
+    console.log("authors fetched");
+ });
 
 function generateText(){
-  var selectizeControl = $select[0].selectize
+  var authorsValue;
+  if($select==null){
+     window.alert("Please select one or more artists");
+     return;
+   } 
+
+  var selectizeControl = $select[0].selectize;
+  authorsValue = selectizeControl.getValue();
+  if(authorsValue==""){
+    window.alert("Please select one or more artists");
+  }
+
+  var sentenceCount = sentenceCountInput.value;
+  if(sentenceCount==""){
+    sentenceCount = 5;
+  }
+
+  var bannedWordsCount = bannedWordsCountInput.value;
+  if(bannedWordsCount==""){
+    bannedWordsCount = 100;
+  }
+
+  var attempts = attemptsInput.value;
+  if(attempts==""){
+    attempts = 10;
+  }
+
+  var stateSize = stateSizeInput.value;
+  if(stateSize==""){
+    stateSize = 2;
+  }
+
   $.ajax({
       type: "POST",
       url: "http://192.168.10.106:5000/generate_lyrics",
-      data: "authors="+ selectizeControl.getValue()
+      data: "authors="+ authorsValue + "&"+
+      "sentence_count="+sentenceCount+ "&"+
+      "banned_words_count="+bannedWordsCount+ "&"+
+      "attempts="+attempts+ "&"+
+      "state_size="+stateSize
     }).then(function(data) {
      lyricsTextArea.value = data;
     });
@@ -99,6 +140,18 @@ function toggleRecording() {
 
 // The nested try blocks will be simplified when Chrome 47 moves to Stable
 function startRecording() {
+  var playPromise = document.getElementById('audio').play();
+      // In browsers that don’t yet support this functionality,
+      // playPromise won’t be defined.
+      if (playPromise !== undefined) {
+        playPromise.then(function() {
+          // Automatic playback started!
+        }).catch(function(error) {
+          // Automatic playback failed.
+          // Show a UI element to let the user manually start playback.
+          console.log("eeee stiga ee " + error);
+        });
+      }
   recordedBlobs = [];
   var options = {mimeType: 'video/webm;codecs=vp9'};
   if (!MediaRecorder.isTypeSupported(options.mimeType)) {
@@ -133,6 +186,35 @@ function stopRecording() {
   mediaRecorder.stop();
   console.log('Recorded Blobs: ', recordedBlobs);
   download();
+}
+
+function initAudio(){
+  var dir, ext, mylist;
+  dir = "audio_tracks/";
+  ext = ".mp3";
+  // Audio Object
+  document.getElementById('audio').src = dir+"default"+ext;
+  // Event Handling
+  mylist = document.getElementById("mylist");
+  mylist.addEventListener("change", changeTrack);
+  // Functions
+  function changeTrack(event){
+    console.log("track name",dir+event.target.value+ext);
+      document.getElementById('audio').src = dir+event.target.value+ext;
+      var playPromise = document.getElementById('audio').play();
+
+      // In browsers that don’t yet support this functionality,
+      // playPromise won’t be defined.
+      if (playPromise !== undefined) {
+        playPromise.then(function() {
+          // Automatic playback started!
+        }).catch(function(error) {
+          // Automatic playback failed.
+          // Show a UI element to let the user manually start playback.
+          console.log("eeee stiga ee " + error);
+        });
+      }
+  }
 }
 
 function download() {

@@ -60,9 +60,10 @@ def get_artists_from_http(base_url):
         last_page = soup.select('.pagination a')
         last_page = (int(last_page[-2].get_text()) + 1) if last_page else 2
         for idx in range(1, last_page):
+            print "Started page %d letter %s" % (idx, l.get_text())
             tmp, ext = letter_url.rsplit('.', 1)
             url = '%s-%d.%s' % (tmp, idx, ext)
-            soup = make_soup(letter_url)
+            soup = make_soup(url)
             artist_slugs = [a.get('href') for a in soup.select('.topArtists.list ul a')]
             artist_names = [s.get_text() for s in soup.select('.topArtists.list ul span')]
             artists.update(dict(zip(artist_names, artist_slugs)))
@@ -123,4 +124,3 @@ def get_lyrics(author):
 if __name__ == '__main__':
     artists = get_artists()
     print get_lyrics(artists.values()[0])
-    # print parse_lyrics("http://textove.com/slavi-trifonov-i-kuku-bend-zhiva-rana-tekst")

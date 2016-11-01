@@ -21,7 +21,8 @@ def merge_audio_files(file1, file2, fileOut):
 
     combined = sound1.overlay(sound2)
 
-    combined.export(fileOut, format='mp3')
+    # combine the audios, add the original video to the output file too!
+    combined.export(fileOut, format='mp4', parameters=['-i', file1])
 
 def handle_uploaded_file(f, filename):
     with open(filename, 'wb+') as destination:
@@ -51,7 +52,7 @@ def upload(request):
             uniqueTimeStamp = str(int(time.time()))
             filename = 'static/' + uniqueTimeStamp + '.mp3'
             handle_uploaded_file(request.FILES['audio'], filename)
-            output = 'static/output-' + uniqueTimeStamp + '.mp3'
+            output = 'static/output-' + uniqueTimeStamp + '.mp4'
             merge_audio_files(filename, beatSound, output)
 
             return HttpResponse(json.dumps({

@@ -17,6 +17,7 @@ var stateSizeInput = document.querySelector('input#state_size');
 recordButton.onclick = toggleRecording;
 generateButton.onclick = generateText;
 var $select;
+var audioTracks;
 
 // window.isSecureContext could be used for Chrome
 var isSecureOrigin = location.protocol === 'https:' ||
@@ -79,21 +80,20 @@ function generateText(){
   }
 
   var stateSize = stateSizeInput.value;
-  if(stateSize==""){
+  if(stateSize == ""){
     stateSize = 2;
   }
 
-  $.ajax({
-      type: "POST",
-      url: "http://192.168.10.106:5000/generate_lyrics",
-      data: "authors="+ authorsValue + "&"+
-      "sentence_count="+sentenceCount+ "&"+
-      "banned_words_count="+bannedWordsCount+ "&"+
-      "attempts="+attempts+ "&"+
-      "state_size="+stateSize
-    }).then(function(data) {
-     lyricsTextArea.value = data;
-    });
+  API.generateLyricsCall( {
+    authorsValue:authorsValue,
+    selectizeControl:selectizeControl,
+    sentenceCount:sentenceCount,
+    bannedWordsCount:bannedWordsCount,
+    attempts:attempts,
+    stateSize:stateSize
+  }, function callback(data){
+    lyricsTextArea.value = data;
+  });
 }
 
 
@@ -140,6 +140,7 @@ function toggleRecording() {
 
 // The nested try blocks will be simplified when Chrome 47 moves to Stable
 function startRecording() {
+  document.getElementById('audio').currentTime = 0;
   var playPromise = document.getElementById('audio').play();
       // In browsers that don’t yet support this functionality,
       // playPromise won’t be defined.

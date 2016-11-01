@@ -40,7 +40,6 @@ def beats(request):
                 "url": baseUrl + fileName
             })
 
-    # list files, foreach files, dump json
     return HttpResponse(json.dumps(beatsResponse))
 
 def upload(request):

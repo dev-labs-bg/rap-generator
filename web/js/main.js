@@ -1,5 +1,6 @@
 /* globals MediaRecorder */
 var gumVideo = document.querySelector('video#gum');
+var resultVideo = document.querySelector('video#result');
 var authorsSelector = document.querySelector('input#authors_selector');
 var generateButton = document.querySelector('button#generate');
 var recordButton = document.querySelector('button#record');
@@ -13,9 +14,13 @@ var $select;
 generateButton.onclick = generateText;
 var recorderInstance = new Recorder();
 recorderInstance.onVideoReady = function (recordedBlobs) {
-    uploadToServer(recordedBlobs);
+    uploadToServer(recordedBlobs, function (data) {
+        resultVideo.src = data.url;
+    });
 };
-window.addEventListener("load", recorderInstance.initAudio);
+window.addEventListener("load", function () {
+    recorderInstance.initAudio();
+});
 recordButton.onclick = function () {
     // this == dom button element
     recorderInstance.toggleRecording();
@@ -66,7 +71,7 @@ function generateText() {
     });
 }
 
-function uploadToServer(recordedBlobs) {
+function uploadToServer(recordedBlobs, callback) {
     var blob = new Blob(recordedBlobs, {type: 'video/webm'});
     //the code below saves the file to the computer
     // var url = window.URL.createObjectURL(blob);
@@ -84,15 +89,16 @@ function uploadToServer(recordedBlobs) {
     //sending the file trough form data
     var myFormData = new FormData();
     myFormData.append('audio', blob);
-    myFormData.append('track', 'track1.mp3');
+    myFormData.append('beat', 'track1.mp3');
     $.ajax({
         url: 'http://192.168.10.118:8000/api/upload',
         type: 'POST',
         processData: false, // important
         contentType: false, // important
-        // dataType : 'json',
+        dataType: "json",
         data: myFormData
     }).then(function (data) {
         console.log('url', data);
+        callback(data);
     });
 }

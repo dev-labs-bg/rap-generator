@@ -25,7 +25,7 @@ Recorder.prototype.startRecording = function () {
         }).catch(function (error) {
             // Automatic playback failed.
             // Show a UI element to let the user manually start playback.
-            console.log("eeee stiga ee " + error);
+            console.log(error);
         });
     }
     self.recordedBlobs = [];
@@ -64,12 +64,15 @@ Recorder.prototype.startRecording = function () {
 
 Recorder.prototype.stopRecording = function (event) {
     var self = this;
+    document.getElementById('audio').pause();
+    document.getElementById('audio').currentTime = 0;
     self.mediaRecorder.stop(event);
     console.log('Recorded Blobs: ', self.recordedBlobs);
     self.onVideoReady(self.recordedBlobs);
 };
 
 Recorder.prototype.initAudio = function () {
+    var self = this;
     var dir, ext, mylist;
     dir = "audio_tracks/";
     ext = ".mp3";
@@ -80,21 +83,25 @@ Recorder.prototype.initAudio = function () {
     mylist.addEventListener("change", changeTrack);
     // Functions
     function changeTrack(event) {
-        console.log("track name", dir + event.target.value + ext);
-        document.getElementById('audio').src = dir + event.target.value + ext;
-        var playPromise = document.getElementById('audio').play();
+        var url = dir + event.target.value + ext;
+        self.playAudio(url);
+    }
+};
 
-        // In browsers that don’t yet support this functionality,
-        // playPromise won’t be defined.
-        if (playPromise !== undefined) {
-            playPromise.then(function () {
-                // Automatic playback started!
-            }).catch(function (error) {
-                // Automatic playback failed.
-                // Show a UI element to let the user manually start playback.
-                console.log(error);
-            });
-        }
+Recorder.prototype.playAudio = function(srcUrl) {
+    var self = this;
+    document.getElementById('audio').src = srcUrl;
+    var playPromise = document.getElementById('audio').play();
+    // In browsers that don’t yet support this functionality,
+    // playPromise won’t be defined.
+    if (playPromise !== undefined) {
+        playPromise.then(function () {
+            // Automatic playback started!
+        }).catch(function (error) {
+            // Automatic playback failed.
+            // Show a UI element to let the user manually start playback.
+            console.log(error);
+        });
     }
 };
 

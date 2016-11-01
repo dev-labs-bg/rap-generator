@@ -23,7 +23,8 @@ var API = {
 
     fetchBeats: function (callback) {
         $.ajax({
-            url: "http://192.168.10.118:8000/api/beats"
+            url: "http://192.168.10.118:8000/api/beats",
+            dataType : "json"
         }).then(function (data) {
             callback(data);
         });

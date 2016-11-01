@@ -13,7 +13,7 @@ CORS(app)
 @app.route('/authors', methods=['GET'])
 def get_authors():
     cached = json.loads(request.args.get('cached', 'False'))
-    authors = [dict(name=name, slug=slug, cached=scraper.has_cached_lyrics(name)) for name, slug in scraper.get_artists().iteritems()]
+    authors = [dict(name=name, slug=slug, cached=scraper.has_cached_lyrics(slug)) for name, slug in scraper.get_artists().iteritems()]
     if cached:
         authors = [a for a in authors if a['cached'] == True]
     return Response(response=json.dumps(authors), status=200,

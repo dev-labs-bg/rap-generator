@@ -1,4 +1,4 @@
-function Recorder(file) {
+function Recorder() {
     this.mediaSource = new MediaSource();
     var mediaRecorder;
     var recordedBlobs;
@@ -92,7 +92,7 @@ Recorder.prototype.initAudio = function () {
             }).catch(function (error) {
                 // Automatic playback failed.
                 // Show a UI element to let the user manually start playback.
-                console.log("eeee stiga ee " + error);
+                console.log(error);
             });
         }
     }

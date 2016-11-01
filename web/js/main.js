@@ -1,6 +1,4 @@
 /* globals MediaRecorder */
-
-
 var gumVideo = document.querySelector('video#gum');
 var authorsSelector = document.querySelector('input#authors_selector');
 var generateButton = document.querySelector('button#generate');

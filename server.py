@@ -28,8 +28,6 @@ def get_all_lyrics(artist):
 
 @app.route('/generate_lyrics', methods=['POST'])
 def get_generated_lyrics():
-    # TODO <Yavor>: Allow the get_model and generate_sentences functions to be passed
-    # raw text strings instead of filenames.
     artists = request.form['authors'].split(',')
     lyrics = ''
     for a in artists:

@@ -6,6 +6,7 @@ from urllib2 import urlopen
 from os import path
 import json
 import sys
+import pprint
 
 
 BASE_LYRICS_DIR = './lyrics/'
@@ -21,9 +22,9 @@ def parse_lyrics(section_url):
     soup = make_soup(section_url)
     text_node = soup.select("div#maintxt")
     if not text_node:
-        return ""
-    text = text_node[0].get_text()
-    return text
+        return ''
+    text = ' '.join(text_node[0].findAll(text=True))
+    return text[2:len(text)-1]
 
 
 def parse_url_list(base_url, section_url):
@@ -122,3 +123,4 @@ def get_lyrics(author):
 if __name__ == '__main__':
     artists = get_artists()
     print get_lyrics(artists.values()[0])
+    # print parse_lyrics("http://textove.com/slavi-trifonov-i-kuku-bend-zhiva-rana-tekst")

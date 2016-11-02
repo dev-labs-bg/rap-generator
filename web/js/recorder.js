@@ -52,10 +52,10 @@ Recorder.prototype.startRecording = function () {
     }
     console.log('Created MediaRecorder', self.mediaRecorder, 'with options', options);
     recordButton.textContent = 'Stop Recording';
-    self.mediaRecorder.onstop =  function(event) {
+    self.mediaRecorder.onstop = function (event) {
         self.handleStop(event);
     };
-    self.mediaRecorder.ondataavailable = function(event) {
+    self.mediaRecorder.ondataavailable = function (event) {
         self.handleDataAvailable(event);
     };
     self.mediaRecorder.start(10); // collect 10ms of data
@@ -71,24 +71,20 @@ Recorder.prototype.stopRecording = function (event) {
     self.onVideoReady(self.recordedBlobs);
 };
 
-Recorder.prototype.initAudio = function () {
+Recorder.prototype.initAudio = function (initialUrl) {
+    console.log(initialUrl);
     var self = this;
-    var dir, ext, mylist;
-    dir = "audio_tracks/";
-    ext = ".mp3";
     // Audio Object
-    document.getElementById('audio').src = dir + "default" + ext;
+    document.getElementById('audio').src = initialUrl;
     // Event Handling
-    mylist = document.getElementById("mylist");
-    mylist.addEventListener("change", changeTrack);
+    selectList.addEventListener("change", changeTrack);
     // Functions
     function changeTrack(event) {
-        var url = dir + event.target.value + ext;
-        self.playAudio(url);
+        self.playAudio(event.target.value);
     }
 };
 
-Recorder.prototype.playAudio = function(srcUrl) {
+Recorder.prototype.playAudio = function (srcUrl) {
     var self = this;
     document.getElementById('audio').src = srcUrl;
     var playPromise = document.getElementById('audio').play();
@@ -105,21 +101,21 @@ Recorder.prototype.playAudio = function(srcUrl) {
     }
 };
 
-Recorder.prototype.handleSourceOpen = function(event) {
+Recorder.prototype.handleSourceOpen = function (event) {
     var self = this;
     console.log('MediaSource opened');
     self.sourceBuffer = self.mediaSource.addSourceBuffer('video/webm; codecs="vp8"');
     console.log('Source buffer: ', self.sourceBuffer);
 };
 
-Recorder.prototype.handleDataAvailable = function(event) {
+Recorder.prototype.handleDataAvailable = function (event) {
     var self = this;
     if (event.data && event.data.size > 0) {
         self.recordedBlobs.push(event.data);
     }
 };
 
-Recorder.prototype.handleStop = function(event) {
+Recorder.prototype.handleStop = function (event) {
     console.log('Recorder stopped: ', event);
 };
 

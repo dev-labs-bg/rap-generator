@@ -9,6 +9,7 @@ var sentenceCountInput = document.querySelector('input#sentence_count');
 var bannedWordsCountInput = document.querySelector('input#banned_words_count');
 var attemptsInput = document.querySelector('input#attempts');
 var stateSizeInput = document.querySelector('input#state_size');
+var selectList = document.querySelector('select#mylist');
 var $select;
 
 generateButton.onclick = generateText;
@@ -18,9 +19,7 @@ recorderInstance.onVideoReady = function (recordedBlobs) {
         resultVideo.src = data.url;
     });
 };
-window.addEventListener("load", function () {
-    recorderInstance.initAudio();
-});
+
 recordButton.onclick = function () {
     // this == dom button element
     recorderInstance.toggleRecording();

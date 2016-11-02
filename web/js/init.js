@@ -1,4 +1,4 @@
-API.fetchAuthors(function callback(data){
+API.fetchAuthors(function callback(data) {
     authorsSelector.disabled = false;
     $select = $('#authors_selector').selectize({
         maxItems: null,
@@ -12,6 +12,14 @@ API.fetchAuthors(function callback(data){
 });
 
 
-API.fetchBeats(function callback(data){
-    console.log("beats fetched", data);
+API.fetchBeats(function callback(beats) {
+    console.log("beats fetched", beats);
+    recorderInstance.initAudio(beats[0].url);
+    beats.forEach(function (element) {
+        var temp = document.createElement('option');
+        temp.setAttribute("value", element.url);
+        temp.setAttribute("selected", false);
+        temp.innerHTML = element.id;
+        selectList.appendChild(temp);
+    });
 });

@@ -18,8 +18,8 @@ API.fetchBeats(function callback(beats) {
     beats.forEach(function (element) {
         var temp = document.createElement('option');
         temp.setAttribute("value", element.url);
-        temp.setAttribute("selected", false);
         temp.innerHTML = element.id;
         selectList.appendChild(temp);
     });
+    selectList.selectedIndex = 0;
 });

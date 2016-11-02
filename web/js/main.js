@@ -89,7 +89,7 @@ function uploadToServer(recordedBlobs, callback) {
     //sending the file trough form data
     var myFormData = new FormData();
     myFormData.append('audio', blob);
-    myFormData.append('beat', 'track1.mp3');
+    myFormData.append('beat', selectList.options[selectList.selectedIndex].text);
     $.ajax({
         url: 'http://192.168.10.118:8000/api/upload',
         type: 'POST',

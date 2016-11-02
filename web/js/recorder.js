@@ -67,7 +67,6 @@ Recorder.prototype.stopRecording = function (event) {
     document.getElementById('audio').pause();
     document.getElementById('audio').currentTime = 0;
     self.mediaRecorder.stop(event);
-    console.log('Recorded Blobs: ', self.recordedBlobs);
     self.onVideoReady(self.recordedBlobs);
 };
 

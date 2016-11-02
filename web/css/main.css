@@ -4,7 +4,7 @@ body {
 
 .hintlabel {
     width: 100%;
-    font-size: small;
+    font-size: medium;
     margin: 10px 0 10px 0;
 }
 
@@ -90,9 +90,6 @@ body {
 
 #generate {
     margin: 10px 0 20px 0;
-}
-audio{
-    margin: 10px 50px 20px 50px;
 }
 
 #lyrics_text {

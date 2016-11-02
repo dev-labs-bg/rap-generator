@@ -31,7 +31,7 @@
 <div id="container">
     <div class="row">
 
-        <div class="col-sm-3">
+        <div class="col-sm-6">
             <div class="input_div">
                 <text class="hintlabel">Въведете 1 или няколко автори:</text>
             </div>
@@ -79,7 +79,7 @@
         </div>
 
         <div class="col-sm-3">
-            <select id="mylist" size="4">
+            <select id="mylist" size = 20>
                 <!--&lt;!&ndash;https://www.youtube.com/watch?v=tOnTPW1MTZ4&ndash;&gt;-->
                 <!--<option value="track1">Freestyle-Rap Battle Instrumental Beat</option>-->
                 <!--&lt;!&ndash;https://www.youtube.com/watch?v=D7ghIuf0V-o&ndash;&gt;-->
@@ -95,21 +95,22 @@
     </div>
 
     <div class="row">
-        <div class="col-sm-3">
+        <div class="col-sm-6">
             <div>
                 <textarea id="lyrics_text"></textarea>
             </div>
         </div>
 
-        <div class="col-sm-3">
+        <div class="col-sm-4">
             <div>
-                <video id="gum" autoplay muted></video>
+                <video class="video" id="gum" autoplay muted></video>
             </div>
             <div>
                 <button id="record">Start Recording</button>
             </div>
+
             <div>
-                <video id="result" autoplay controls></video>
+                <video class="video" id="result" autoplay></video>
             </div>
         </div>
     </div>

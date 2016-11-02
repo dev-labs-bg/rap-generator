@@ -16,6 +16,7 @@ generateButton.onclick = generateText;
 var recorderInstance = new Recorder();
 recorderInstance.onVideoReady = function (recordedBlobs) {
     uploadToServer(recordedBlobs, function (data) {
+        resultVideo.controls = true;
         resultVideo.src = data.url;
     });
 };

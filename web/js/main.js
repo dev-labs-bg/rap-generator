@@ -1,4 +1,4 @@
-/* globals MediaRecorder */
+// globals
 var gumVideo = document.querySelector('video#gum');
 var resultVideo = document.querySelector('video#result');
 var authorsSelector = document.querySelector('input#authors_selector');
@@ -10,9 +10,9 @@ var bannedWordsCountInput = document.querySelector('input#banned_words_count');
 var attemptsInput = document.querySelector('input#attempts');
 var stateSizeInput = document.querySelector('input#state_size');
 var selectList = document.querySelector('select#mylist');
+// selection of the selectize`s select element filled with artists
 var $select;
 
-generateButton.onclick = generateText;
 var recorderInstance = new Recorder();
 recorderInstance.onVideoReady = function (recordedBlobs) {
     uploadToServer(recordedBlobs, function (data) {
@@ -21,75 +21,84 @@ recorderInstance.onVideoReady = function (recordedBlobs) {
     });
 };
 
+//on click methods setting
+generateButton.onclick = generateText;
 recordButton.onclick = function () {
     // this == dom button element
     recorderInstance.toggleRecording();
 };
 
 function generateText() {
-    var authorsValue;
-    if ($select == null) {
-        window.alert("Please select one or more artists");
+    if (!isInputValid()) {
         return;
     }
-
     var selectizeControl = $select[0].selectize;
-    authorsValue = selectizeControl.getValue();
-    if (authorsValue == "") {
-        window.alert("Please select one or more artists");
-    }
+    var authorsValue = selectizeControl.getValue();
+    API.generateLyricsCall({
+            authorsValue: authorsValue,
+            sentenceCount: getSentenceCount(),
+            bannedWordsCount: getBannedWordsCount(),
+            attempts: getAttempts(),
+            stateSize: getStateSize()
+        },
+        function callback(data) {
+            lyricsTextArea.value = data;
+        });
+}
 
-    var sentenceCount = sentenceCountInput.value;
-    if (sentenceCount == "") {
-        sentenceCount = 5;
-    }
-
-    var bannedWordsCount = bannedWordsCountInput.value;
-    if (bannedWordsCount == "") {
-        bannedWordsCount = 100;
-    }
-
-    var attempts = attemptsInput.value;
-    if (attempts == "") {
-        attempts = 10;
-    }
-
+function getStateSize() {
     var stateSize = stateSizeInput.value;
     if (stateSize == "") {
-        stateSize = 2;
+        return 2;
     }
+    return stateSize;
+}
 
-    API.generateLyricsCall({
-        authorsValue: authorsValue,
-        selectizeControl: selectizeControl,
-        sentenceCount: sentenceCount,
-        bannedWordsCount: bannedWordsCount,
-        attempts: attempts,
-        stateSize: stateSize
-    }, function callback(data) {
-        lyricsTextArea.value = data;
-    });
+function getAttempts() {
+    var attempts = attemptsInput.value;
+    if (attempts == "") {
+        return 10;
+    }
+    return attempts;
+}
+
+function getBannedWordsCount() {
+    var bannedWordsCount = bannedWordsCountInput.value;
+    if (bannedWordsCount == "") {
+        return 100;
+    }
+    return bannedWordsCount;
+}
+
+function getSentenceCount() {
+    var sentenceCount = sentenceCountInput.value;
+    if (sentenceCount == "") {
+        return 5;
+    }
+    return sentenceCount;
+}
+
+function isInputValid() {
+    if ($select == null) {
+        window.alert("Please select one or more artists");
+        return false;
+    }
+    var selectizeControl = $select[0].selectize;
+    var authorsValue = selectizeControl.getValue();
+    if (authorsValue == "") {
+        window.alert("Please select one or more artists");
+        return false;
+    }
+    return true;
 }
 
 function uploadToServer(recordedBlobs, callback) {
     var blob = new Blob(recordedBlobs, {type: 'video/webm'});
-    //the code below saves the file to the computer
-    // var url = window.URL.createObjectURL(blob);
-    // var a = document.createElement('a');
-    // a.style.display = 'none';
-    // a.href = url;
-    // a.download = 'test.mp4';
-    // document.body.appendChild(a);
-    // a.click();
-    // setTimeout(function() {
-    //   document.body.removeChild(a);
-    //   window.URL.revokeObjectURL(url);
-    // }, 100);
-
+    var beatName = selectList.options[selectList.selectedIndex].text;
     //sending the file trough form data
     var myFormData = new FormData();
     myFormData.append('audio', blob);
-    myFormData.append('beat', selectList.options[selectList.selectedIndex].text);
+    myFormData.append('beat', beatName);
     $.ajax({
         url: 'http://192.168.10.118:8000/api/upload',
         type: 'POST',

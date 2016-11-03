@@ -44,7 +44,6 @@ def word_choice(text_model, last_sentence, words_to_generate, banned_words=[],  
 
 
 def generate_sentence(text_model, state_size, input_words=None, attempts=10, text=''):
-    banned_words = []
     out = None
     for i in range(attempts):
         try:

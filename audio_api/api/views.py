@@ -37,7 +37,7 @@ def beats(request):
         if isfile(fileName):
             beatsResponse.append({
                 "id": f,
-                "url": request.build_absolute_uri("/" + filename)
+                "url": request.build_absolute_uri("/" + fileName)
             })
 
     return HttpResponse(json.dumps(beatsResponse))

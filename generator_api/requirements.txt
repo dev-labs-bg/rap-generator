@@ -27,3 +27,5 @@ six==1.10.0
 Twisted==16.4.1
 Unidecode==0.4.19
 w3lib==1.15.0
+Flask==0.11.1
+Flask-Cors==3.0.2

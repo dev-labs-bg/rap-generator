@@ -1,20 +1,20 @@
 var API = {
     /**
      * Generate lyrics of a new song
-     * @param parameters containing
-     * artistsListValue - List of artist keys, separated by comma symbol
-     * sentenceCount - Count of sentences you want to be returned (default: 5)
-     * bannedWordsCount - How many of the last words used to generate the sentence should not be repeated (default: 100)
-     * attempts - How many attempts to include certain word in a sentence,
+     * @param parameters
+     * @param parameters.artistsListValue - List of artist keys, separated by comma symbol
+     * @param parameters.sentenceCount - Count of sentences you want to be returned (default: 5)
+     * @param parameters.bannedWordsCount - How many of the last words used to generate the sentence should not be repeated (default: 100)
+     * @param parameters.attempts - How many attempts to include certain word in a sentence,
      * before give up and send something random (default: 10)
-     * stateSize - How many of the last words are remembered (default: 2).
+     * @param parameters.stateSize - How many of the last words are remembered (default: 2).
      * If increased, the generation is slower.
      * @param callback - returns the generated text as string
      */
     generateLyricsCall: function (parameters, callback) {
         $.ajax({
             type: "POST",
-            url: "http://yavor-ivanov.net:5000/generate_lyrics",
+            url: "https://rap-generator.devlabs-projects.com/generator/generate_lyrics",
             data: "authors=" + parameters.artistsListValue + "&" +
             "sentence_count=" + parameters.sentenceCount + "&" +
             "banned_words_count=" + parameters.bannedWordsCount + "&" +
@@ -32,7 +32,7 @@ var API = {
      */
     fetchAuthors: function (callback) {
         $.ajax({
-            url: "http://yavor-ivanov.net:5000/authors?cached=true"
+            url: "https://rap-generator.devlabs-projects.com/generator/authors?cached=true"
         }).then(function (data) {
             callback(data);
         });

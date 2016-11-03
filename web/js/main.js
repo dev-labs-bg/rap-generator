@@ -10,9 +10,22 @@ var bannedWordsCountInput = document.querySelector('input#banned_words_count');
 var attemptsInput = document.querySelector('input#attempts');
 var stateSizeInput = document.querySelector('input#state_size');
 var selectList = document.querySelector('select#mylist');
+
+/**
+ * default values for the input fields used when nothing is entered
+ * returns the default value for the corresponding key
+ */
+var GLOBALS = {
+    default_state_size: 2,
+    default_attempts: 10,
+    default_sentence_count: 5,
+    default_banned_words_count: 100
+};
+
 // selection of the selectize`s select element filled with artists
 var $select;
 
+//instance of the Recorder class which manages the recording logic
 var recorderInstance = new Recorder();
 
 /**
@@ -46,10 +59,10 @@ function generateText() {
     var artistsListValue = selectizeControl.getValue();
     API.generateLyricsCall({
             artistsListValue: artistsListValue,
-            sentenceCount: getSentenceCount(),
-            bannedWordsCount: getBannedWordsCount(),
-            attempts: getAttempts(),
-            stateSize: getStateSize()
+            sentenceCount: getCountFromInput(sentenceCountInput, GLOBALS.default_sentence_count),
+            bannedWordsCount: getCountFromInput(bannedWordsCountInput, GLOBALS.default_banned_words_count),
+            attempts: getCountFromInput(attemptsInput, GLOBALS.default_attempts),
+            stateSize: getCountFromInput(stateSizeInput, GLOBALS.default_state_size)
         },
         function callback(data) {
             lyricsTextArea.value = data;
@@ -57,45 +70,22 @@ function generateText() {
 }
 
 /**
- * @returns {string} entered state size or default value
+ * Returns value from <input>
+ * @param inputField - <input> from which the value is taken
+ * @param defaultValue - if not valid or not entered
+ * @returns {int} int value from input or default value if not entered or invalid
  */
-function getStateSize() {
-    var stateSize = stateSizeInput.value;
-    if (stateSize == "") {
-        return 2;
+function getCountFromInput(inputField, defaultValue) {
+    var count = inputField.value;
+    if (count != "") {
+        var value = parseInt(count);
+        if (!isNaN(value)) {
+            return value;
+        }
     }
-    return stateSize;
+    return defaultVal;
 }
-/**
- * @returns {string} entered attempts or default value
- */
-function getAttempts() {
-    var attempts = attemptsInput.value;
-    if (attempts == "") {
-        return 10;
-    }
-    return attempts;
-}
-/**
- * @returns {string} entered bannedWordsCount or default value
- */
-function getBannedWordsCount() {
-    var bannedWordsCount = bannedWordsCountInput.value;
-    if (bannedWordsCount == "") {
-        return 100;
-    }
-    return bannedWordsCount;
-}
-/**
- * @returns {string} entered sentenceCount or default value
- */
-function getSentenceCount() {
-    var sentenceCount = sentenceCountInput.value;
-    if (sentenceCount == "") {
-        return 5;
-    }
-    return sentenceCount;
-}
+
 
 /**
  * checks for valid input

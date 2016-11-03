@@ -1,3 +1,8 @@
+/**
+ * This file contains the two initial requests for fetching authors and beats
+ * they are needed in order to fill the selectize input with artists
+ * and the select element with beats
+ */
 API.fetchAuthors(function callback(data) {
     authorsSelector.disabled = false;
     $select = $('#authors_selector').selectize({

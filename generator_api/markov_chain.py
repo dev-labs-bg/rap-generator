@@ -1,12 +1,7 @@
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import markovify
-import sys
-import random
-import collections
-import itertools
-import os
+import markovify, sys, random, collections, itertools, os
 
 
 def argv_or_const(idx, const):
@@ -48,11 +43,8 @@ def word_choice(text_model, last_sentence, words_to_generate, banned_words=[],  
     return tuple(chosen_words) if chosen_words else None
 
 
-def generate_sentence(text_model, last_sentence, state_size, attempts=10, text=''):
+def generate_sentence(text_model, state_size, input_words=None, attempts=10, text=''):
     banned_words = []
-    input_words = None
-    if last_sentence:
-        input_words = word_choice(text_model, last_sentence, state_size, banned_words)
     out = None
     for i in range(attempts):
         try:
@@ -77,9 +69,9 @@ def generate_sentences(text_model, sentence_count, state_size,
             banned_words.extend(input_words)
             if len(banned_words) > banned_word_count:
                 banned_words = banned_words[-banned_word_count:]
-        sentence = generate_sentence(text_model, last_sentence, state_size, attempts)
+        sentence = generate_sentence(text_model, state_size, input_words, attempts)
         if sentence is None:
-            sentence = generate_sentence(text_model, None, attempts)
+            sentence = generate_sentence(text_model, state_size, attempts)
         if sentence:
             last_sentence = sentence
             sentences.append(sentence)

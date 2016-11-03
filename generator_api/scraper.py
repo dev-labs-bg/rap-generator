@@ -4,9 +4,7 @@
 from bs4 import BeautifulSoup
 from urllib2 import urlopen
 from os import path
-import json
-import sys
-import pprint
+import json, sys, pprint
 
 
 BASE_LYRICS_DIR = './lyrics/'

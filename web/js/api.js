@@ -1,9 +1,21 @@
 var API = {
+    /**
+     * Generate lyrics of a new song
+     * @param parameters containing
+     * artistsListValue - List of artist keys, separated by comma symbol
+     * sentenceCount - Count of sentences you want to be returned (default: 5)
+     * bannedWordsCount - How many of the last words used to generate the sentence should not be repeated (default: 100)
+     * attempts - How many attempts to include certain word in a sentence,
+     * before give up and send something random (default: 10)
+     * stateSize - How many of the last words are remembered (default: 2).
+     * If increased, the generation is slower.
+     * @param callback - returns the generated text as string
+     */
     generateLyricsCall: function (parameters, callback) {
         $.ajax({
             type: "POST",
             url: "http://yavor-ivanov.net:5000/generate_lyrics",
-            data: "authors=" + parameters.authorsValue + "&" +
+            data: "authors=" + parameters.artistsListValue + "&" +
             "sentence_count=" + parameters.sentenceCount + "&" +
             "banned_words_count=" + parameters.bannedWordsCount + "&" +
             "attempts=" + parameters.attempts + "&" +
@@ -13,6 +25,11 @@ var API = {
         });
     },
 
+    /**
+     * Function with retrieves a list of authors represented by
+     * {string} name and {string} slug
+     * @param callback - contains list of authors
+     */
     fetchAuthors: function (callback) {
         $.ajax({
             url: "http://yavor-ivanov.net:5000/authors?cached=true"
@@ -21,11 +38,42 @@ var API = {
         });
     },
 
+    /**
+     * Function with retrieves a list of beats represented by
+     * {string} id - used later a parameter for the upload
+     * {string} url
+     * @param callback - contains list of beats
+     */
     fetchBeats: function (callback) {
         $.ajax({
             url: "http://192.168.10.118:8000/api/beats",
             dataType : "json"
         }).then(function (data) {
+            callback(data);
+        });
+    },
+
+    /**
+     * Uploads video recorded by the cam to the API
+     * @param recordedBlobs - the blobs representing the video record
+     * @param beatName - selected audio name from the select element
+     * @param callback - returns an url to the new generated video
+     */
+    uploadToServer: function(recordedBlobs, beatName, callback) {
+        var blob = new Blob(recordedBlobs, {type: 'video/webm'});
+        //sending the file trough form data
+        var myFormData = new FormData();
+        myFormData.append('audio', blob);
+        myFormData.append('beat', beatName);
+        $.ajax({
+            url: 'http://192.168.10.118:8000/api/upload',
+            type: 'POST',
+            processData: false, // important
+            contentType: false, // important
+            dataType: "json",
+            data: myFormData
+        }).then(function (data) {
+            console.log('url', data);
             callback(data);
         });
     }

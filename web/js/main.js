@@ -15,7 +15,8 @@ var $select;
 
 var recorderInstance = new Recorder();
 recorderInstance.onVideoReady = function (recordedBlobs) {
-    uploadToServer(recordedBlobs, function (data) {
+    var beatName = selectList.options[selectList.selectedIndex].text;
+    API.uploadToServer(recordedBlobs, beatName, function (data) {
         resultVideo.controls = true;
         resultVideo.src = data.url;
     });
@@ -33,9 +34,9 @@ function generateText() {
         return;
     }
     var selectizeControl = $select[0].selectize;
-    var authorsValue = selectizeControl.getValue();
+    var artistsListValue = selectizeControl.getValue();
     API.generateLyricsCall({
-            authorsValue: authorsValue,
+            artistsListValue: artistsListValue,
             sentenceCount: getSentenceCount(),
             bannedWordsCount: getBannedWordsCount(),
             attempts: getAttempts(),
@@ -84,30 +85,30 @@ function isInputValid() {
         return false;
     }
     var selectizeControl = $select[0].selectize;
-    var authorsValue = selectizeControl.getValue();
-    if (authorsValue == "") {
+    var artistsListValue = selectizeControl.getValue();
+    if (artistsListValue == "") {
         window.alert("Please select one or more artists");
         return false;
     }
     return true;
 }
 
-function uploadToServer(recordedBlobs, callback) {
-    var blob = new Blob(recordedBlobs, {type: 'video/webm'});
-    var beatName = selectList.options[selectList.selectedIndex].text;
-    //sending the file trough form data
-    var myFormData = new FormData();
-    myFormData.append('audio', blob);
-    myFormData.append('beat', beatName);
-    $.ajax({
-        url: 'http://192.168.10.118:8000/api/upload',
-        type: 'POST',
-        processData: false, // important
-        contentType: false, // important
-        dataType: "json",
-        data: myFormData
-    }).then(function (data) {
-        console.log('url', data);
-        callback(data);
-    });
-}
+// function uploadToServer(recordedBlobs, callback) {
+//     var blob = new Blob(recordedBlobs, {type: 'video/webm'});
+//     var beatName = selectList.options[selectList.selectedIndex].text;
+//     //sending the file trough form data
+//     var myFormData = new FormData();
+//     myFormData.append('audio', blob);
+//     myFormData.append('beat', beatName);
+//     $.ajax({
+//         url: 'http://192.168.10.118:8000/api/upload',
+//         type: 'POST',
+//         processData: false, // important
+//         contentType: false, // important
+//         dataType: "json",
+//         data: myFormData
+//     }).then(function (data) {
+//         console.log('url', data);
+//         callback(data);
+//     });
+// }

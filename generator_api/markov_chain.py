@@ -70,7 +70,7 @@ def generate_sentences(text_model, sentence_count, state_size,
                 banned_words = banned_words[-banned_word_count:]
         sentence = generate_sentence(text_model, state_size, input_words, attempts)
         if sentence is None:
-            sentence = generate_sentence(text_model, state_size, attempts)
+            sentence = generate_sentence(text_model, state_size, attempts=attempts)
         if sentence:
             last_sentence = sentence
             sentences.append(sentence)

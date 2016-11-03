@@ -14,6 +14,12 @@ var selectList = document.querySelector('select#mylist');
 var $select;
 
 var recorderInstance = new Recorder();
+
+/**
+ * onVideoReady is a callback called when the stop recording button is clicked
+ * when the blobs are ready for use this callback is called
+ * @param recordedBlobs - returning the recorded blobs which are later uploaded to the server
+ */
 recorderInstance.onVideoReady = function (recordedBlobs) {
     var beatName = selectList.options[selectList.selectedIndex].text;
     API.uploadToServer(recordedBlobs, beatName, function (data) {
@@ -29,6 +35,9 @@ recordButton.onclick = function () {
     recorderInstance.toggleRecording();
 };
 
+/**
+ * function which generates text based on the values from input fields
+ */
 function generateText() {
     if (!isInputValid()) {
         return;
@@ -47,6 +56,9 @@ function generateText() {
         });
 }
 
+/**
+ * @returns {string} entered state size or default value
+ */
 function getStateSize() {
     var stateSize = stateSizeInput.value;
     if (stateSize == "") {
@@ -54,7 +66,9 @@ function getStateSize() {
     }
     return stateSize;
 }
-
+/**
+ * @returns {string} entered attempts or default value
+ */
 function getAttempts() {
     var attempts = attemptsInput.value;
     if (attempts == "") {
@@ -62,7 +76,9 @@ function getAttempts() {
     }
     return attempts;
 }
-
+/**
+ * @returns {string} entered bannedWordsCount or default value
+ */
 function getBannedWordsCount() {
     var bannedWordsCount = bannedWordsCountInput.value;
     if (bannedWordsCount == "") {
@@ -70,7 +86,9 @@ function getBannedWordsCount() {
     }
     return bannedWordsCount;
 }
-
+/**
+ * @returns {string} entered sentenceCount or default value
+ */
 function getSentenceCount() {
     var sentenceCount = sentenceCountInput.value;
     if (sentenceCount == "") {
@@ -79,6 +97,10 @@ function getSentenceCount() {
     return sentenceCount;
 }
 
+/**
+ * checks for valid input
+ * @returns {boolean} true if the inputs are valid
+ */
 function isInputValid() {
     if ($select == null) {
         window.alert("Please select one or more artists");
@@ -92,23 +114,3 @@ function isInputValid() {
     }
     return true;
 }
-
-// function uploadToServer(recordedBlobs, callback) {
-//     var blob = new Blob(recordedBlobs, {type: 'video/webm'});
-//     var beatName = selectList.options[selectList.selectedIndex].text;
-//     //sending the file trough form data
-//     var myFormData = new FormData();
-//     myFormData.append('audio', blob);
-//     myFormData.append('beat', beatName);
-//     $.ajax({
-//         url: 'http://192.168.10.118:8000/api/upload',
-//         type: 'POST',
-//         processData: false, // important
-//         contentType: false, // important
-//         dataType: "json",
-//         data: myFormData
-//     }).then(function (data) {
-//         console.log('url', data);
-//         callback(data);
-//     });
-// }

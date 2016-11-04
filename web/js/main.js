@@ -33,7 +33,10 @@ var GLOBALS = {
     default_speed: 175,
     default_pitch_count: 50,
     default_amplitude: 100,
-    default_word_gap: 170
+    default_word_gap: 170,
+    //labels values for the record button
+    recorder_start: "Започни запис на видео",
+    recorder_stop: "Спри записа"
 };
 
 // selection of the selectize`s select element filled with artists

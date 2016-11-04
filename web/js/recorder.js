@@ -1,12 +1,16 @@
 function Recorder() {
-    this.mediaSource = new MediaSource();
+    var self = this;
+    self.mediaSource = new MediaSource();
     var mediaRecorder;
     var recordedBlobs;
     var sourceBuffer;
+    var shouldStartRecording;
+    self.initialize();
 }
 
 Recorder.prototype.initialize = function () {
     var self = this;
+    self.shouldStartRecording = true;
     self.mediaSource.addEventListener('sourceopen', function (event) {
         console.log("sourceopen");
         self.handleSourceOpen(event);
@@ -53,7 +57,7 @@ Recorder.prototype.startRecording = function () {
         return;
     }
     console.log('Created MediaRecorder', self.mediaRecorder, 'with options', options);
-    recordButton.textContent = 'Stop Recording';
+    recordButton.textContent = GLOBALS.recorder_stop;
     self.mediaRecorder.onstop = function (event) {
         self.handleStop(event);
     };
@@ -125,11 +129,12 @@ Recorder.prototype.handleStop = function (event) {
 Recorder.prototype.toggleRecording = function () {
     var self = this;
     console.log("toggleRecording");
-    if (recordButton.textContent === 'Start Recording') {
+    if (self.shouldStartRecording) {
         self.startRecording();
+        self.shouldStartRecording = false;
     } else {
         self.stopRecording();
-        recordButton.textContent = 'Start Recording';
+        recordButton.textContent = GLOBALS.recorder_start;
     }
 };
 

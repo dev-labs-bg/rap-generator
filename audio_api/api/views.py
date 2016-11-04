@@ -10,6 +10,7 @@ from forms import UploadForm, TtsForm, TextToRapForm
 from os import listdir
 from os.path import isfile, join
 from subprocess import call
+from django.conf import settings
 
 def index(request):
     return HttpResponse("Hey. <br />My name is Song API<br />Give me your audio!<br />I will not tell you bye,<br />I'll make songs, yo!<br />Peace homie!")
@@ -37,7 +38,7 @@ def beats(request):
         if isfile(fileName):
             beatsResponse.append({
                 "id": f,
-                "url": request.build_absolute_uri("/" + filename)
+                "url": settings.STATIC_URL + fileName
             })
 
     return HttpResponse(json.dumps(beatsResponse))
@@ -54,7 +55,7 @@ def upload(request):
             rapSongFile = rappify(filename, beatSound)
 
             return HttpResponse(json.dumps({
-                "url": request.build_absolute_uri("/" + rapSongFile)
+                "url": request.build_absolute_uri(settings.STATIC_URL + rapSongFile)
             }))
     else:
         return HttpResponse('test here: <form method="post" enctype="multipart/form-data">' + str(form) + '<input type=submit />')
@@ -92,7 +93,7 @@ def tts(request):
         # q = request.POST.get('text', 'send text plz')
         fileName = textToSpeech(**request.POST.dict())
 
-        return HttpResponse(request.build_absolute_uri("/" + fileName))
+        return HttpResponse(request.build_absolute_uri(settings.STATIC_URL + fileName))
     else:
         return HttpResponse('test here: <form method="post">' + str(form) + '<input type=submit />')
 
@@ -108,7 +109,7 @@ def textToRap(request):
         rapSongFile = rappify(speechFile, beatSound)
 
         return HttpResponse(json.dumps({
-            "url": request.build_absolute_uri("/" + rapSongFile)
+            "url": request.build_absolute_uri(settings.STATIC_URL + rapSongFile)
         }))
     else:
         return HttpResponse('test here: <form method="post">' + str(form) + '<input type=submit />')

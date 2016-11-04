@@ -12,7 +12,7 @@ var sentenceCountInput = document.querySelector('input#sentence_count');
 var bannedWordsCountInput = document.querySelector('input#banned_words_count');
 var attemptsInput = document.querySelector('input#attempts');
 var stateSizeInput = document.querySelector('input#state_size');
-var selectList = document.querySelector('select#mylist');
+var selectList = document.querySelector('select#audio_select_list');
 
 //parameters for text to rap generation
 var speedInput = document.querySelector('input#speed');

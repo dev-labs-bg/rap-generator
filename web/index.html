@@ -29,18 +29,22 @@
 </head>
 <body>
 <div id="container">
+    <div class="row" align="center">
+        <h3 id="page_title">Хей, това е DevLabs Генератора на рап песни!</h3>
+    </div>
     <div class="row">
+        <div class="col-sm-3"></div>
 
         <div class="col-sm-3">
             <div class="input_div">
-                <text class="hintlabel">Въведете 1 или няколко автори:</text>
+                <text class="hintlabel">Въведи автор/и</text>
             </div>
             <div class="input_div">
                 <input id="authors_selector" type="text" disabled="true">
             </div>
 
             <div class="input_div">
-                <text class="hintlabel">Колко изречения искаш да ти генерира бота (default: 5)</text>
+                <text class="hintlabel">Колко изречения искаш да се генерират (default: 5)</text>
             </div>
             <div class="input_div">
                 <input class="input_param" id="sentence_count" type="number" min="1" max="40">
@@ -74,42 +78,43 @@
             </div>
 
             <div>
-                <button id="generate">Generate</button>
+                <button id="generate">Генерирай нов текст</button>
             </div>
         </div>
 
         <div class="col-sm-3">
-            <select id="mylist" size=20>
+            <div class="input_div">
+                <text class="hintlabel">Избери мелодия</text>
+            </div>
+
+            <select id="audio_select_list" size=20>
             </select>
 
-            <audio controls id="audio"/>
-        </div>
+            <audio controls id="audio"></audio>
 
-        <div class="col-sm-3">
             <div class="input_div">
-                <text class="hintlabel">Speed (default 175)</text>
+                <text class="hintlabel">Скрост (default 175)</text>
             </div>
             <div class="input_div">
                 <input class="input_param" id="speed" type="number">
             </div>
 
             <div class="input_div">
-                <text class="hintlabel">Pitch 0 to 99 (defaults to 50)</text>
+                <text class="hintlabel">Височина на тона 0 to 99 (default 50)</text>
             </div>
             <div class="input_div">
                 <input class="input_param" id="pitch_count" type="number" min="0" max="99">
             </div>
 
             <div class="input_div">
-                <text class="hintlabel">Amplitude 0 to 200 (defaults to 100)</text>
+                <text class="hintlabel">Амплитуда 0 to 200 (default 100)</text>
             </div>
             <div class="input_div">
                 <input class="input_param" id="amplitude" type="number" min="0" max="200">
             </div>
 
             <div class="input_div">
-                <text class="hintlabel"> Word gap - The value is the length of the pause, in units of 10 mS (at the
-                    default speed of 170 wpm).
+                <text class="hintlabel"> Пауза между думите в единици от по 10 mS (default 170)
                 </text>
             </div>
             <div class="input_div">
@@ -117,15 +122,16 @@
             </div>
 
             <div>
-                <button id="text_rap">Text to Rap</button>
+                <button id="text_rap">Генерирай аудио с tts</button>
             </div>
         </div>
     </div>
 
     <div class="row">
+        <div class="col-sm-3"></div>
         <div class="col-sm-3">
             <div class="input_div">
-                <text class="hintlabel">Lyrics:</text>
+                <text class="hintlabel">Текст на новата песен</text>
             </div>
             <div>
                 <textarea id="lyrics_text"></textarea>
@@ -137,7 +143,7 @@
                 <video class="video" id="gum" autoplay muted></video>
             </div>
             <div>
-                <button id="record">Start Recording</button>
+                <button id="record">Започни запис на видео</button>
             </div>
 
             <div>

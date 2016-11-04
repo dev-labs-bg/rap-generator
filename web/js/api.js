@@ -46,7 +46,7 @@ var API = {
      */
     fetchBeats: function (callback) {
         $.ajax({
-            url: "http://192.168.10.118:8000/api/beats",
+            url: "https://rap-generator.devlabs-projects.com/audio/api/beats",
             dataType : "json"
         }).then(function (data) {
             callback(data);
@@ -66,7 +66,7 @@ var API = {
         myFormData.append('audio', blob);
         myFormData.append('beat', beatName);
         $.ajax({
-            url: 'http://192.168.10.118:8000/api/upload',
+            url: 'https://rap-generator.devlabs-projects.com/audio/api/upload',
             type: 'POST',
             processData: false, // important
             contentType: false, // important

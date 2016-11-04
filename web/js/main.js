@@ -57,6 +57,7 @@ function generateText() {
     }
     var selectizeControl = $select[0].selectize;
     var artistsListValue = selectizeControl.getValue();
+    debugger;
     API.generateLyricsCall({
             artistsListValue: artistsListValue,
             sentenceCount: getCountFromInput(sentenceCountInput, GLOBALS.default_sentence_count),
@@ -83,7 +84,7 @@ function getCountFromInput(inputField, defaultValue) {
             return value;
         }
     }
-    return defaultVal;
+    return defaultValue;
 }
 
 

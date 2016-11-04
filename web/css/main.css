@@ -1,63 +1,114 @@
-/*
- *  Copyright (c) 2015 The WebRTC project authors. All Rights Reserved.
- *
- *  Use of this source code is governed by a BSD-style license
- *  that can be found in the LICENSE file in the root of the source
- *  tree.
- */
-/* button {
-  margin: 0 3px 10px 0;
-  width: 140px;
-  padding-left: 2px;
-  padding-right: 2px;
+body {
+    padding: 30px 30px 30px 30px;
 }
 
-button:last-of-type {
-  margin: 0;
+.hintlabel {
+    width: 100%;
+    font-size: medium;
+    margin: 10px 0 10px 0;
 }
 
-p.borderBelow {
-  margin: 0 0 20px 0;
-  padding: 0 0 20px 0;
+.input_div {
+    width: 100%;
 }
 
-
-
-
-video:last-of-type {
-  margin: 0 0 20px 0;
-}*/
-#gum  {
-  height: 342px;
-  margin: 20px 12px 0 20px;
-  vertical-align: top;
-  width: calc(30em - 10px);
+#result {
+    height: 50%;
+    margin: 10px 0 10px 0;
+    vertical-align: center;
+    width: 70%;
 }
-#body { 
+
+#gum {
+    height: 50%;
+    margin: 10px 0 10px 0;
+    vertical-align: center;
+    width: 70%;
+}
+
+.input_param {
+    width: 100%;
+    margin: 10px 0 10px 0;
+    border: 1px solid #cccccc;
+    padding: 6px 12px;
+    display: inline-block;
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+}
+
+#authors_selector {
+    width: 100%;
+    margin: 10px 0 10px 0;
+    border: 1px solid #cccccc;
+    padding: 6px 12px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+}
+
+#mylist {
+    width: 100%;
+    height: 220px;
+    margin: 10px 0 10px 0;
+    border: 1px solid #cccccc;
+    padding: 6px 12px;
+    display: inline-block;
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+}
+
+#body {
     padding: 20px 12px 20px 20px;
 }
-#record { 
-    margin: 0 12px 20px 20px;
-}
-#generate { 
-    margin: 20px 12px 20px 20px;
+
+#record {
+    margin: 0 0 20px 0;
 }
 
-/*@media screen and (max-width: 500px) {
-  button {
-    font-size: 0.8em;
-    width: calc(33% - 5px);
-  }
+#generate {
+    margin: 10px 0 20px 0;
 }
 
-@media screen and (max-width: 720px) {
-  video {
-    height: calc((50vw - 48px) * 3 / 4);
-    margin: 0 10px 10px 0;
-    width: calc(50vw - 48px);
-  }
-
-  video#gumVideo {
-    margin: 0 10px 10px 0;
-  }
-}*/
+#lyrics_text {
+    height: 700px;
+    width: 100%;
+    font-size: x-large;
+    margin: 10px 0 10px 0;
+    border: 1px solid #cccccc;
+    padding: 6px 12px;
+    display: inline-block;
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+}

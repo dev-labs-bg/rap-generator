@@ -99,10 +99,10 @@ var API = {
             data:
             "text =" + parameters.text + "&" +
             "beat =" + parameters.beat + "&" +
-            "sentence_count=" + parameters.speed + "&" +
-            "banned_words_count=" + parameters.pitch + "&" +
-            "attempts=" + parameters.amplitude + "&" +
-            "state_size=" + parameters.gap
+            "speed=" + parameters.speed + "&" +
+            "pitch=" + parameters.pitch + "&" +
+            "amplitude=" + parameters.amplitude + "&" +
+            "gap=" + parameters.gap
         }).then(function (data) {
             callback(data);
         });

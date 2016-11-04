@@ -1,0 +1,4 @@
+lyrics/
+*.pyc
+.DS_Store
+wishlist.txt

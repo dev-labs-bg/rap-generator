@@ -89,7 +89,7 @@ function generateText() {
  * @returns {boolean} true if the lyrics area is filled
  */
 function isSongGenerated() {
-    var lyrics = lyricsTextArea.getValue();
+    var lyrics = lyricsTextArea.value;
     if (lyrics == "") {
         window.alert("Please generate or write your own lyrics first");
         return false;
@@ -103,9 +103,8 @@ function generateTextToRap() {
     if (!isSongGenerated()) {
         return;
     }
-    var lyrics = lyricsTextArea.getValue();
+    var lyrics = lyricsTextArea.value;
     var beatName = selectList.options[selectList.selectedIndex].text;
-    debugger;
     API.generateRapCall({
             text: lyrics,
             beat: beatName,

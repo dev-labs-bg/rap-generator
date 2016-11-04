@@ -14,16 +14,16 @@ body {
 
 #result {
     height: 50%;
-    margin: 10px 0 10px 0;
+    margin: 34px 0 10px 0;
     vertical-align: center;
-    width: 70%;
+    width: 100%;
 }
 
 #gum {
     height: 50%;
-    margin: 10px 0 10px 0;
+    margin: 34px 0 10px 0;
     vertical-align: center;
-    width: 70%;
+    width: 100%;
 }
 
 .input_param {

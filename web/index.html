@@ -31,7 +31,7 @@
 <div id="container">
     <div class="row">
 
-        <div class="col-sm-6">
+        <div class="col-sm-3">
             <div class="input_div">
                 <text class="hintlabel">Въведете 1 или няколко автори:</text>
             </div>
@@ -79,29 +79,60 @@
         </div>
 
         <div class="col-sm-3">
-            <select id="mylist" size = 20>
-                <!--&lt;!&ndash;https://www.youtube.com/watch?v=tOnTPW1MTZ4&ndash;&gt;-->
-                <!--<option value="track1">Freestyle-Rap Battle Instrumental Beat</option>-->
-                <!--&lt;!&ndash;https://www.youtube.com/watch?v=D7ghIuf0V-o&ndash;&gt;-->
-                <!--<option value="track2">Rap Freestyle Battle Hip Hop Instrumental Beat</option>-->
-                <!--&lt;!&ndash;https://www.youtube.com/watch?v=W8Cyo1ye2ag&ndash;&gt;-->
-                <!--<option value="track3">Back to Reality - 90's Hip Hop Old School Instrumental (ft. Dj Munja)</option>-->
-                <!--&lt;!&ndash;https://www.youtube.com/watch?v=Ni17fKtuqEE&ndash;&gt;-->
-                <!--<option value="track4">Violin Rap Instrumental 2012</option>-->
+            <select id="mylist" size=20>
             </select>
 
             <audio controls id="audio"/>
         </div>
+
+        <div class="col-sm-3">
+            <div class="input_div">
+                <text class="hintlabel">Speed (default 175)</text>
+            </div>
+            <div class="input_div">
+                <input class="input_param" id="speed" type="number">
+            </div>
+
+            <div class="input_div">
+                <text class="hintlabel">Pitch 0 to 99 (defaults to 50)</text>
+            </div>
+            <div class="input_div">
+                <input class="input_param" id="pitch_count" type="number" min="0" max="99">
+            </div>
+
+            <div class="input_div">
+                <text class="hintlabel">Amplitude 0 to 200 (defaults to 100)</text>
+            </div>
+            <div class="input_div">
+                <input class="input_param" id="amplitude" type="number" min="0" max="200">
+            </div>
+
+            <div class="input_div">
+                <text class="hintlabel"> Word gap - The value is the length of the pause, in units of 10 mS (at the
+                    default speed of 170 wpm).
+                </text>
+            </div>
+            <div class="input_div">
+                <input class="input_param" id="word_gap" type="number" min="1" max="100">
+            </div>
+
+            <div>
+                <button id="text_rap">Text to Rap</button>
+            </div>
+        </div>
     </div>
 
     <div class="row">
-        <div class="col-sm-6">
+        <div class="col-sm-3">
+            <div class="input_div">
+                <text class="hintlabel">Lyrics:</text>
+            </div>
             <div>
                 <textarea id="lyrics_text"></textarea>
             </div>
         </div>
 
-        <div class="col-sm-4">
+        <div class="col-sm-3">
             <div>
                 <video class="video" id="gum" autoplay muted></video>
             </div>

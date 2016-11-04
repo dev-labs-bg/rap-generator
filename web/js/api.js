@@ -76,5 +76,35 @@ var API = {
             console.log('url', data);
             callback(data);
         });
+    },
+
+
+    /**
+     *
+     * Generates audio from the lyrics of the new song
+     * @param parameters
+     * @param parameters.text - lyrics
+     * @param parameters.beat - selected beat
+     * @param parameters.speed - (default 175)
+     * @param parameters.pitch - 0 to 99 (defaults to 50)
+     * @param parameters.amplitude - 0 to 200 (defaults to 100)
+     * @param parameters.gap - The value is the length of the pause, in units of 10 mS (at the
+     default speed of 170 wpm).
+     * @param callback - returns a link to the generated audio
+     */
+    generateRapCall: function (parameters, callback) {
+        $.ajax({
+            type: "POST",
+            url: 'https://rap-generator.devlabs-projects.com/audio/api/text-to-rap',
+            data:
+            "text =" + parameters.text + "&" +
+            "beat =" + parameters.beat + "&" +
+            "sentence_count=" + parameters.speed + "&" +
+            "banned_words_count=" + parameters.pitch + "&" +
+            "attempts=" + parameters.amplitude + "&" +
+            "state_size=" + parameters.gap
+        }).then(function (data) {
+            callback(data);
+        });
     }
 };

@@ -97,8 +97,8 @@ var API = {
             type: "POST",
             url: 'https://rap-generator.devlabs-projects.com/audio/api/text-to-rap',
             data:
-            "text =" + parameters.text + "&" +
-            "beat =" + parameters.beat + "&" +
+            "text=" + parameters.text + "&" +
+            "beat=" + parameters.beat + "&" +
             "speed=" + parameters.speed + "&" +
             "pitch=" + parameters.pitch + "&" +
             "amplitude=" + parameters.amplitude + "&" +

@@ -8,12 +8,14 @@ function Recorder() {
 Recorder.prototype.initialize = function () {
     var self = this;
     self.mediaSource.addEventListener('sourceopen', function (event) {
+        console.log("sourceopen");
         self.handleSourceOpen(event);
     }, false);
 };
 
 // The nested try blocks will be simplified when Chrome 47 moves to Stable
 Recorder.prototype.startRecording = function () {
+    console.log("startRecording");
     var self = this;
     document.getElementById('audio').currentTime = 0;
     var playPromise = document.getElementById('audio').play();
@@ -63,6 +65,7 @@ Recorder.prototype.startRecording = function () {
 };
 
 Recorder.prototype.stopRecording = function (event) {
+    console.log("stopRecording");
     var self = this;
     document.getElementById('audio').pause();
     document.getElementById('audio').currentTime = 0;
@@ -71,6 +74,7 @@ Recorder.prototype.stopRecording = function (event) {
 };
 
 Recorder.prototype.initAudio = function (initialUrl) {
+    console.log("initAudio");
     console.log(initialUrl);
     var self = this;
     // Audio Object

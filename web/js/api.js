@@ -96,13 +96,14 @@ var API = {
         $.ajax({
             type: "POST",
             url: 'https://rap-generator.devlabs-projects.com/audio/api/text-to-rap',
+            dataType: "json",
             data:
             "text=" + parameters.text + "&" +
             "beat=" + parameters.beat + "&" +
-            "speed=" + parameters.speed + "&" +
-            "pitch=" + parameters.pitch + "&" +
-            "amplitude=" + parameters.amplitude + "&" +
-            "gap=" + parameters.gap
+            // "speed=" + parameters.speed + "&" +
+            // "pitch=" + parameters.pitch + "&" +
+            "amplitude=200"// + parameters.amplitude// + "&" +
+            // "gap=" + parameters.gap
         }).then(function (data) {
             callback(data);
         });

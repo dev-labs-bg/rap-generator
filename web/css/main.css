@@ -105,14 +105,13 @@ body {
 }
 
 #lyrics_text {
-    height: 495px;
+    height: 695px;
     width: 100%;
-    font-size: large;
+    font-size: medium;
     margin: 10px 0 16px 0;
     border: 1px solid #cccccc;
     padding: 6px 12px;
     display: inline-block;
-    overflow: hidden;
     position: relative;
     z-index: 1;
     -webkit-box-sizing: border-box;

@@ -15,10 +15,10 @@ var stateSizeInput = document.querySelector('input#state_size');
 var selectList = document.querySelector('select#audio_select_list');
 
 //parameters for text to rap generation
-var speedInput = document.querySelector('input#speed');
-var pitchCountInput = document.querySelector('input#pitch_count');
-var amplitudeInput = document.querySelector('input#amplitude');
-var wordGapInput = document.querySelector('input#word_gap');
+// var speedInput = document.querySelector('input#speed');
+// var pitchCountInput = document.querySelector('input#pitch_count');
+// var amplitudeInput = document.querySelector('input#amplitude');
+// var wordGapInput = document.querySelector('input#word_gap');
 /**
  * default values for the input fields used when nothing is entered
  * returns the default value for the corresponding key
@@ -110,14 +110,15 @@ function generateTextToRap() {
     var beatName = selectList.options[selectList.selectedIndex].text;
     API.generateRapCall({
             text: lyrics,
-            beat: beatName,
-            speed: getCountFromInput(speedInput, GLOBALS.default_speed),
-            pitch: getCountFromInput(pitchCountInput, GLOBALS.default_pitch_count),
-            amplitude: getCountFromInput(amplitudeInput, GLOBALS.default_amplitude),
-            gap: getCountFromInput(wordGapInput, GLOBALS.default_word_gap)
+            beat: beatName//,
+            // speed: getCountFromInput(speedInput, GLOBALS.default_speed),
+            // pitch: getCountFromInput(pitchCountInput, GLOBALS.default_pitch_count),
+            // amplitude: getCountFromInput(amplitudeInput, GLOBALS.default_amplitude),
+            // gap: getCountFromInput(wordGapInput, GLOBALS.default_word_gap)
         },
         function callback(data) {
-            playAudio(data);
+            // console.log(data.url);
+            recorderInstance.playAudio(data.url);
         });
 }
 

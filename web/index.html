@@ -8,40 +8,154 @@
 -->
 <html>
 <head>
-  <meta charset="utf-8">
-  <meta name="description" content="WebRTC code samples">
-  <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1, maximum-scale=1">
-  <meta itemprop="description" content="Client-side WebRTC code samples">
-  <meta itemprop="image" content="../../../images/webrtc-icon-192x192.png">
-  <meta itemprop="name" content="WebRTC code samples">
-  <meta name="mobile-web-app-capable" content="yes">
-  <meta id="theme-color" name="theme-color" content="#ffffff">
-  <base target="_blank">
-  <title>MediaStream Recording</title>
+    <meta charset="utf-8">
+    <meta name="description" content="WebRTC code samples">
+    <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1, maximum-scale=1">
+    <meta itemprop="description" content="Client-side WebRTC code samples">
+    <meta itemprop="image" content="../../../images/webrtc-icon-192x192.png">
+    <meta itemprop="name" content="WebRTC code samples">
+    <meta name="mobile-web-app-capable" content="yes">
+    <base target="_blank">
+    <title>MediaStream Recording</title>
 
-  <!-- Bootstrap -->
-  <link href="css/selectize.bootstrap3.css" rel="stylesheet">
-  <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap -->
+    <link href="css/selectize.bootstrap3.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
 
-  <link href="css/main.css" rel="stylesheet">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
- <!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="js/bootstrap.min.js"></script>
-<script src="js/standalone/selectize.js"></script>
+    <link href="css/main.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/standalone/selectize.js"></script>
 </head>
 <body>
-  <div id="container">
-    <div>
-      <input id="authors_selector" type="text">
-      <button id="generate">Generate</button>
+<div id="container">
+    <div class="row" align="center">
+        <h3 id="page_title">Хей, това е DevLabs Генератора на рап песни!</h3>
     </div>
-    <div>
-      <video id="gum" autoplay muted></video> 
+    <div class="row">
+        <div class="col-sm-3"></div>
+
+        <div class="col-sm-3">
+            <div class="input_div">
+                <text class="hintlabel">Въведи автор/и</text>
+            </div>
+            <div class="input_div">
+                <input id="authors_selector" type="text" disabled="true">
+            </div>
+
+            <div class="input_div">
+                <text class="hintlabel">Колко изречения искаш да се генерират (default: 5)</text>
+            </div>
+            <div class="input_div">
+                <input class="input_param" id="sentence_count" type="number" min="1" max="40">
+            </div>
+
+            <div class="input_div">
+                <text class="hintlabel">Какъв брой от последно използваните думи за генериране на изречение не трябва да
+                    се повтарят (default: последните 100)
+                </text>
+            </div>
+            <div class="input_div">
+                <input class="input_param" id="banned_words_count" type="number" min="1" max="1000">
+            </div>
+
+            <div class="input_div">
+                <text class="hintlabel">Колко опита да направи ботът да включи определени думи в изречението преди да се
+                    откаже и да изкара нещо random (default: 10 опита)
+                </text>
+            </div>
+            <div class="input_div">
+                <input class="input_param" id="attempts" type="number" min="1" max="100">
+            </div>
+
+            <div class="input_div">
+                <text class="hintlabel">Колко от последните използвани думи помни бота (default: 2). Ако увеличиш броя
+                    думи за определени автори генерира много бавно.
+                </text>
+            </div>
+            <div class="input_div">
+                <input class="input_param" id="state_size" type="number" min="1" max="100">
+            </div>
+
+            <div>
+                <button id="generate">Генерирай текст</button>
+            </div>
+        </div>
+
+        <div class="col-sm-3">
+            <div class="input_div">
+                <text class="hintlabel">Избери мелодия</text>
+            </div>
+
+            <select id="audio_select_list" size=20>
+            </select>
+
+            <audio controls id="audio"></audio>
+
+            <div class="input_div">
+                <text class="hintlabel">Скoрост (default 150)</text>
+            </div>
+            <div class="input_div">
+                <input class="input_param" id="speed" type="number">
+            </div>
+
+            <div class="input_div">
+                <text class="hintlabel">Височина на тона 0 to 99 (default 50)</text>
+            </div>
+            <div class="input_div">
+                <input class="input_param" id="pitch_count" type="number" min="0" max="99">
+            </div>
+
+            <div class="input_div">
+                <text class="hintlabel">Амплитуда 0 to 200 (default 100)</text>
+            </div>
+            <div class="input_div">
+                <input class="input_param" id="amplitude" type="number" min="0" max="200">
+            </div>
+
+            <div class="input_div">
+                <text class="hintlabel"> Пауза между думите в единици от по 10 mS (default 2)
+                </text>
+            </div>
+            <div class="input_div">
+                <input class="input_param" id="word_gap" type="number" min="0" max="100">
+            </div>
+
+            <div>
+                <button id="text_rap">Генерирай аудио с tts</button>
+            </div>
+        </div>
     </div>
-    <div>
-      <button id="record">Start Recording</button>
+
+    <div class="row">
+        <div class="col-sm-3"></div>
+        <div class="col-sm-3">
+            <div class="input_div">
+                <text class="hintlabel">Текст на новата песен</text>
+            </div>
+            <div>
+                <textarea id="lyrics_text"></textarea>
+            </div>
+        </div>
+
+        <div class="col-sm-3">
+            <div>
+                <video class="video" id="gum" autoplay muted></video>
+            </div>
+            <div>
+                <button id="record">Започни запис на видео</button>
+            </div>
+
+            <div>
+                <video class="video" id="result" autoplay></video>
+            </div>
+        </div>
     </div>
-  </div>
-  <script src="js/main.js"></script>
+
+</div>
+<script src="js/api.js"></script>
+<script src="js/init.js"></script>
+<script src="js/recorder.js"></script>
+<script src="js/main.js"></script>
 </body>
 </html>

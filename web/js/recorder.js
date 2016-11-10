@@ -1,19 +1,25 @@
 function Recorder() {
-    this.mediaSource = new MediaSource();
+    var self = this;
+    self.mediaSource = new MediaSource();
     var mediaRecorder;
     var recordedBlobs;
     var sourceBuffer;
+    var shouldStartRecording;
+    self.initialize();
 }
 
 Recorder.prototype.initialize = function () {
     var self = this;
+    self.shouldStartRecording = true;
     self.mediaSource.addEventListener('sourceopen', function (event) {
+        console.log("sourceopen");
         self.handleSourceOpen(event);
     }, false);
 };
 
 // The nested try blocks will be simplified when Chrome 47 moves to Stable
 Recorder.prototype.startRecording = function () {
+    console.log("startRecording");
     var self = this;
     document.getElementById('audio').currentTime = 0;
     var playPromise = document.getElementById('audio').play();
@@ -51,7 +57,7 @@ Recorder.prototype.startRecording = function () {
         return;
     }
     console.log('Created MediaRecorder', self.mediaRecorder, 'with options', options);
-    recordButton.textContent = 'Stop Recording';
+    recordButton.textContent = GLOBALS.recorder_stop;
     self.mediaRecorder.onstop = function (event) {
         self.handleStop(event);
     };
@@ -63,6 +69,7 @@ Recorder.prototype.startRecording = function () {
 };
 
 Recorder.prototype.stopRecording = function (event) {
+    console.log("stopRecording");
     var self = this;
     document.getElementById('audio').pause();
     document.getElementById('audio').currentTime = 0;
@@ -71,6 +78,7 @@ Recorder.prototype.stopRecording = function (event) {
 };
 
 Recorder.prototype.initAudio = function (initialUrl) {
+    console.log("initAudio");
     console.log(initialUrl);
     var self = this;
     // Audio Object
@@ -121,11 +129,12 @@ Recorder.prototype.handleStop = function (event) {
 Recorder.prototype.toggleRecording = function () {
     var self = this;
     console.log("toggleRecording");
-    if (recordButton.textContent === 'Start Recording') {
+    if (self.shouldStartRecording) {
         self.startRecording();
+        self.shouldStartRecording = false;
     } else {
         self.stopRecording();
-        recordButton.textContent = 'Start Recording';
+        recordButton.textContent = GLOBALS.recorder_start;
     }
 };
 

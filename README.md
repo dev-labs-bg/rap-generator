@@ -2,7 +2,7 @@
 
 This project is part of a short sprints initiative, in which we tackle problems and challenge ourselves with technical challenges.
 
-At the start of the sprint we set a goal (to generate rap songs programatically), we clear the idea, research on implementation and 
+At the start of the sprint we set a goal (to generate rap songs programatically), we clear the idea, research on possible implementations and 
 make our way into a prototype, then at the end of the sprint we present the final result of our efforts, we describe the things we 
 challenged and make plans for next steps for the project.
 

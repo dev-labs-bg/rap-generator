@@ -47,7 +47,7 @@ var API = {
     fetchBeats: function (callback) {
         $.ajax({
             url: "https://rap-generator.devlabs-projects.com/audio/api/beats",
-            dataType : "json"
+            dataType: "json"
         }).then(function (data) {
             callback(data);
         });
@@ -59,7 +59,7 @@ var API = {
      * @param beatName - selected audio name from the select element
      * @param callback - returns an url to the new generated video
      */
-    uploadToServer: function(recordedBlobs, beatName, callback) {
+    uploadToServer: function (recordedBlobs, beatName, callback) {
         var blob = new Blob(recordedBlobs, {type: 'video/webm'});
         //sending the file trough form data
         var myFormData = new FormData();
@@ -97,13 +97,7 @@ var API = {
             type: "POST",
             url: 'https://rap-generator.devlabs-projects.com/audio/api/text-to-rap',
             dataType: "json",
-            data:
-            "text=" + parameters.text + "&" +
-            "beat=" + parameters.beat + "&" +
-            // "speed=" + parameters.speed + "&" +
-            // "pitch=" + parameters.pitch + "&" +
-            "amplitude=200"// + parameters.amplitude// + "&" +
-            // "gap=" + parameters.gap
+            data: parameters
         }).then(function (data) {
             callback(data);
         });
